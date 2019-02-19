@@ -1,0 +1,14 @@
+function datePrint(currentTime) {
+    let minutes =  currentTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+  return (
+    daysOfWeek[currentTime.getDay()] +
+    ", " +
+    monthsOfYear[currentTime.getMonth()] +
+    " " +
+    currentTime.getDate() +
+    (currentTime.getHours() < 10 ? " , 0" : " , ") +
+    currentTime.getHours() +
+    (currentTime.getMinutes() < 10 ? ":0" : ":") +
+    currentTime.getMinutes()
+  );
+}

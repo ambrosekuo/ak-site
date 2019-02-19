@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Ambrose Kuo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/index.css" />
+    <script type="text/javascript" src="js/weather.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul class="nav-lists">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="aboutMe.html">About Me</a></li>
+          <li><a href="news.html">News</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="dashboard">
+        <section class="weather-app">
+          <h1>Weather</h1>
+          <div> 
+          
+              <form  onSubmit = "setWeatherData();  return false;">
+                      <label for="Location">Check weather at:</label>
+                      <input type="text" id="Location" name="location" placeholder="Search up location"><br>
+                      </form>
+                      <h1 id="TryAgainMessage"> </h1> 
+                      
+          </div>
+        <span id="CurrentLocation"> Toronto</span>
+        <div id="windowInfo"> 
+           <strong> Current Time:</strong> <span id="CurrentTime"> 5:00pm </span>
+            <strong> Temperature(Celcius): </strong> <span id="TempertureResult"></span>
+          </div>
+          <div class="weather-app-container">
+            <aside>
+
+                
+                <div id="hourly-temperature"> 
+              
+                    <!-- Separated into 8 sections, starting at current time-->
+                  <div class="tempTimes" id="Temperature1">  </div>
+                  <div class="tempTimes" id="Temperature2">  </div>
+                  <div class="tempTimes" id="Temperature3">  </div>
+                  <div class="tempTimes" id="Temperature4">  </div>
+                  <div class="tempTimes" id="Temperature5">  </div>
+                  <div class="tempTimes" id="Temperature6">  </div>
+                  <div class="tempTimes" id="Temperature7">  </div>
+                  <div class="tempTimes" id="Temperature8">  </div>
+                </div>
+
+            </aside>
+     
+            <figure class="window">
+             
+                <img id="WeatherAnimation" src="Images/Weather/Snowing.jpg" />
+
+            </figure>
+            <div class="day day1"> 
+              <span class="dates" id="date1"> </span>
+              <figure class="day-img" id="day1"> 
+                
+              </figure>
+              <figcaption>
+                  <span id="maxTemp1"> </span> <span id="minTemp1"> </span> 
+              </figcaption>
+             </div>
+             <div class="day day2"> 
+                <span class="dates" id="date2"> </span>
+               <figure  class="day-img" id="day2"> 
+                 
+               </figure>
+               <figcaption>
+                   <span class="dates" id="maxTemp2"> </span>  <span id="minTemp2"> </span>
+               </figcaption>
+              </div>
+              <div class="day day3"> 
+                  <span class="dates" id="date3"> </span>
+                <figure class="day-img" id="day3"> 
+                  
+                </figure>
+                <figcaption>
+                    <span id="maxTemp3"> </span>  <span id="minTemp3"> </span>
+                </figcaption>
+               </div>
+               <div class="day day4"> 
+                  <span class="dates" id="date4"> </span>
+                 <figure class="day-img" id="day4"> 
+                   
+                 </figure>
+                 <figcaption>
+                     <span class="dates" id="maxTemp4"> </span>  <span id="minTemp4"> </span>
+                 </figcaption>
+                </div>
+                <div class="day day5"> 
+                    <span class="dates" id="date5"> </span>
+                  <figure class="day-img" id="day5"> 
+
+                  </figure>
+                  <figcaption>
+                   <span id="maxTemp5"> </span>    <span id="minTemp5"> </span> 
+                  </figcaption>
+                 </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer>
+      <section class="contact-sec main-sections">
+        Contact Me
+        <form>Email: ambrose.kuo@ryerson.ca</form>
+      </section>
+    </footer>
+  </body>
+</html>
