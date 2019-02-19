@@ -9,17 +9,39 @@ var allWeatherData = {
   loadedIn: { current: false, forecast: false }
 };
 
+const daysOfWeek = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday"
+];
+
+const monthsOfYear = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
+];
+
 //type is either Thunderstorm, Drizzle, Rain, Snow, Atmosphere, Clear, Clouds
 // From https://openweathermap.org/weather-conditions
-function setBackgroundImage(use, type) {
+function setWindowImage() {
   //use is looking for "weather" ,
-  if (type == "Snow") {
-    /*
-    document.body.style.backgroundImage =
-      "url(Images/Weather/nightSnowTexture.jpg)"; */
-  } else {
-    console.log(":(");
-  }
+  console.log(allWeatherData["current"]["weather"][0]["main"]);
+ // document.getElementById("WeatherAnimation").src =
+    "Images/Weather/Window/Thunderstorm.jpg";
+  document.getElementById("WeatherAnimation").src = `Images/Weather/Window/${allWeatherData["current"]["weather"][0]["main"]}.jpg`;
 }
 
 function tryAgainMessage(location) {
@@ -112,12 +134,16 @@ function parseForForecast() {
   let today = new Date();
   console.log(today);
 
+  //Starts the weatherData list position at the day after today.
   date = new Date(weatherData[weatherListIndex]["dt"] * 1000);
   while (date.getDay() == today.getDay()) {
     weatherListIndex++;
     date = new Date(weatherData[weatherListIndex]["dt"] * 1000);
   }
   let prevDate = date;
+  currentTemp = weatherData[weatherListIndex]["main"]["temp"];
+  arr[arrIndex].maxTemp = currentTemp;
+  arr[arrIndex].minTemp = currentTemp;
 
   while (weatherListIndex < weatherData.length) {
     date = new Date(weatherData[weatherListIndex]["dt"] * 1000);
@@ -147,31 +173,6 @@ function parseForForecast() {
   console.log(arr);
   return arr;
 }
-
-const daysOfWeek = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-];
-
-const monthsOfYear = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December"
-];
 
 function datePrint(currentTime) {
   let minutes = currentTime.toLocaleString("en-US", {
@@ -209,10 +210,7 @@ function drawCurrentData() {
   document.getElementById("TempertureResult").innerHTML =
     allWeatherData["current"]["main"]["temp"];
   document.getElementById("TryAgainMessage").innerHTML = "";
-  setBackgroundImage(
-    "weather",
-    allWeatherData["current"]["weather"][0]["main"]
-  );
+  setWindowImage();
   document.getElementById(
     "CurrentLocation"
   ).innerHTML = document.getElementById("Location").value.toUpperCase();
@@ -258,6 +256,7 @@ function loadWeatherData() {
   drawCurrentData();
   setWeatherIcon(forecast5Days);
   setNext24Hours();
+  setWindowImage();
 }
 
 document.addEventListener("DOMContentLoaded", function(event) {
