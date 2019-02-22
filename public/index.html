@@ -21,29 +21,31 @@
 
     <main>
       <section class="dashboard">
-        <section class="weather-app">
-          <h1>Weather</h1>
-          <div>
-            <form onSubmit="setWeatherData();  return false;">
-              <label for="Location">Check weather at:</label>
-              <input
-                type="text"
-                id="Location"
-                name="location"
-                placeholder="Search up location"
-              /><br />
-            </form>
-            <h1 id="TryAgainMessage"></h1>
-          </div>
-          <span id="CurrentLocation"> Toronto</span>
-          <div id="windowInfo">
-            <strong> Current Time:      </strong>
-            <span id="CurrentTime"> 5:00pm </span>
-            <br>
-            <strong> Temperature(Celcius): </strong>
-            <span id="TempertureResult"></span>
-          </div>
+        <div class="module testing">aaaaaaaaaaaaaaaa</div>
+        <div class="module testing2">ccc</div>
+        <section class="module weather-app">
           <div class="weather-app-container">
+            <div class="location-input">
+              <h1 id="weather-title">Weather</h1>
+              <form onSubmit="setWeatherData();  return false;">
+                <label for="Location">Check weather at:</label>
+                <input
+                  type="text"
+                  id="Location"
+                  name="location"
+                  placeholder="Search up location"
+                /><br />
+              </form>
+              <h1 id="TryAgainMessage"></h1>
+            </div>
+            <div class="current-weather-info">
+              <span id="CurrentLocation"> Toronto</span> <br>
+              <strong> Current Time: </strong>
+              <span id="CurrentTime"> 5:00pm </span>
+              <br />
+              <strong> Temperature(Celcius): </strong>
+              <span id="TempertureResult"></span>
+            </div>
             <aside>
               <div id="hourly-temperature">
                 <!-- Separated into 8 sections, starting at current time-->
@@ -61,45 +63,47 @@
             <figure class="window">
               <img id="WeatherAnimation" />
             </figure>
-            <div class="day day1">
-              <span class="dates" id="date1"> </span>
-              <figure class="day-img" id="day1"></figure>
-              <figcaption>
-                <span class="maxTemp" id="maxTemp1"> </span> <br>
-                <span class="minTemp" id="minTemp1"> </span>
-              </figcaption>
-            </div>
-            <div class="day day2">
-              <span class="dates" id="date2"> </span>
-              <figure class="day-img" id="day2"></figure>
-              <figcaption>
-                <span class="maxTemp" id="maxTemp2"> </span><br>
-                <span class="minTemp" id="minTemp2"> </span>
-              </figcaption>
-            </div>
-            <div class="day day3">
-              <span class="dates" id="date3"> </span>
-              <figure class="day-img" id="day3"></figure>
-              <figcaption>
-                <span class="maxTemp" id="maxTemp3"> </span><br>
-                <span class="minTemp" id="minTemp3"> </span>
-              </figcaption>
-            </div>
-            <div class="day day4">
-              <span class="dates" id="date4"> </span>
-              <figure class="day-img" id="day4"></figure>
-              <figcaption>
-                <span class="maxTemp" id="maxTemp4"> </span><br>
-                <span class="minTemp" id="minTemp4"> </span>
-              </figcaption>
-            </div>
-            <div class="day day5">
-              <span class="dates" id="date5"> </span>
-              <figure class="day-img" id="day5"></figure>
-              <figcaption>
-                <span class="maxTemp" id="maxTemp5"> </span><br>
-                <span class="minTemp" id="minTemp5"> </span>
-              </figcaption>
+            <div class="forecast">
+              <div class="day day1">
+                <span class="dates" id="date1"> </span>
+                <figure class="day-img" id="day1"></figure>
+                <figcaption>
+                  <span class="maxTemp" id="maxTemp1"> </span> 
+                  <span class="minTemp" id="minTemp1"> </span>
+                </figcaption>
+              </div>
+              <div class="day day2">
+                <span class="dates" id="date2"> </span>
+                <figure class="day-img" id="day2"></figure>
+                <figcaption>
+                  <span class="maxTemp" id="maxTemp2"> </span>
+                  <span class="minTemp" id="minTemp2"> </span>
+                </figcaption>
+              </div>
+              <div class="day day3">
+                <span class="dates" id="date3"> </span>
+                <figure class="day-img" id="day3"></figure>
+                <figcaption>
+                  <span class="maxTemp" id="maxTemp3"> </span>
+                  <span class="minTemp" id="minTemp3"> </span>
+                </figcaption>
+              </div>
+              <div class="day day4">
+                <span class="dates" id="date4"> </span>
+                <figure class="day-img" id="day4"></figure>
+                <figcaption>
+                  <span class="maxTemp" id="maxTemp4"> </span>
+                  <span class="minTemp" id="minTemp4"> </span>
+                </figcaption>
+              </div>
+              <div class="day day5">
+                <span class="dates" id="date5"> </span>
+                <figure class="day-img" id="day5"></figure>
+                <figcaption>
+                  <span class="maxTemp" id="maxTemp5"> </span>
+                  <span class="minTemp" id="minTemp5"> </span>
+                </figcaption>
+              </div>
             </div>
           </div>
         </section>

@@ -53,6 +53,7 @@ function tryAgainMessage(location) {
 }
 
 async function getForecast() {
+  return new Promise((resolve, reject) => {
   allWeatherData["loadedIn"]["forecast"] = false;
   let apiReq, jsonText, weatherData;
   var location = document.getElementById("Location").value;
@@ -68,15 +69,19 @@ async function getForecast() {
         weatherData = JSON.parse(jsonText);
         allWeatherData["forecast"] = weatherData;
         allWeatherData["loadedIn"]["forecast"] = true;
+        resolve();
       } else {
         tryAgainMessage(location);
+        reject(status);
       }
     }
   };
   apiReq.send();
+});
 }
 
 async function getCurrentWeather() {
+  return new Promise( (resolve,reject) => {
   allWeatherData["loadedIn"]["current"] = false;
   let apiReq, jsonText, weatherData;
   var location = document.getElementById("Location").value;
@@ -93,21 +98,21 @@ async function getCurrentWeather() {
         weatherData = JSON.parse(jsonText);
         allWeatherData["current"] = weatherData;
         allWeatherData["loadedIn"]["current"] = true;
+        resolve();
       } else {
         tryAgainMessage(location);
+        reject(status);
       }
     }
   };
   apiReq.send();
+});
 }
 
 async function setWeatherData() {
   console.log(document.getElementById("Location").value);
-  getCurrentWeather();
-  getForecast();
-  // await Promise.all([getCurrentWeather(), getForecast()]);
-
-  setTimeout(loadWeatherData, 2000); //Budget fix while try to learn how to use promises.
+  await Promise.all([getCurrentWeather(), getForecast()]).then(loadWeatherData);
+  //setTimeout(loadWeatherData, 2000); //Budget fix while try to learn how to use promises.
 
   console.log(allWeatherData);
 }
@@ -131,7 +136,8 @@ function parseForForecast() {
   let weatherListIndex = 0; //weather list index
   let arrIndex = 0;
   let currentTemp;
-  let today = new Date();
+  let today = new Date(allWeatherData["current"]["dt"] * 1000);
+  let prevDate;
   console.log(today);
 
   //Starts the weatherData list position at the day after today.
@@ -140,17 +146,19 @@ function parseForForecast() {
     weatherListIndex++;
     date = new Date(weatherData[weatherListIndex]["dt"] * 1000);
   }
-  let prevDate = date;
+
+  prevDate= date;
   currentTemp = weatherData[weatherListIndex]["main"]["temp"];
+  arr[arrIndex].date =  prevDate ;
   arr[arrIndex].maxTemp = currentTemp;
   arr[arrIndex].minTemp = currentTemp;
 
   while (weatherListIndex < weatherData.length) {
     date = new Date(weatherData[weatherListIndex]["dt"] * 1000);
     currentTemp = weatherData[weatherListIndex]["main"]["temp"];
-    if (date.getDay() != prevDate.getDay()) {
-      arr[arrIndex].date = prevDate;
+    if (date.getDate() != prevDate.getDate()) {
       arrIndex++;
+      arr[arrIndex].date =  date;
       arr[arrIndex].maxTemp = currentTemp;
       arr[arrIndex].minTemp = currentTemp;
     }
@@ -200,7 +208,7 @@ function setHourly() {
     document.getElementById(`Temperature${i + 1}`).innerHTML =
       hourArray[i] +
       ":  " +
-      allWeatherData["forecast"]["list"][i]["main"]["temp"];
+      roundString(allWeatherData["forecast"]["list"][i]["main"]["temp"]);
     currentTime.setHours(currentTime.set);
   }
 }
@@ -208,7 +216,7 @@ function setHourly() {
 function drawCurrentData() {
   console.log(allWeatherData["current"]);
   document.getElementById("TempertureResult").innerHTML =
-    allWeatherData["current"]["main"]["temp"];
+  roundString(allWeatherData["current"]["main"]["temp"]);
   document.getElementById("TryAgainMessage").innerHTML = "";
   setWindowImage();
   document.getElementById(
@@ -226,12 +234,12 @@ function setWeatherIcon(forecast5Days) {
     ).style.backgroundImage = `url("Images/Weather/forecastIcons/${
       forecast5Days[i]["condition"]
     }.png")`;
-    /* document.getElementById(`date${i + 1}`).innerHTML =
-      daysOfWeek[date.getDay()]; */
+    document.getElementById(`date${i + 1}`).innerHTML =
+      daysOfWeek[date.getDay()].substring(0,3); 
     document.getElementById(`minTemp${i + 1}`).innerHTML =
-      forecast5Days[i]["minTemp"];
+    roundString(forecast5Days[i]["minTemp"]);
     document.getElementById(`maxTemp${i + 1}`).innerHTML =
-      forecast5Days[i]["maxTemp"];
+    roundString(forecast5Days[i]["maxTemp"]);
     i++;
   }
 }
@@ -245,8 +253,13 @@ function setNext24Hours() {
       hour12: true
     });
     document.getElementById(`Temperature${i + 1}`).innerHTML =
-      time + ": " + allWeatherData["forecast"]["list"][i]["main"]["temp"];
+      time + ": " + roundString(allWeatherData["forecast"]["list"][i]["main"]["temp"]);
   }
+}
+
+//takes string number, rounds it, and returns as string
+function roundString(numbString) {
+  return Math.round(parseInt(numbString)).toString();
 }
 
 //Main function that calls the weather subfunctions to load their data
@@ -254,6 +267,7 @@ function setNext24Hours() {
 function loadWeatherData() {
   let forecast5Days = parseForForecast(); //an arry of forecasts
   drawCurrentData();
+  console.log(forecast5Days);
   setWeatherIcon(forecast5Days);
   setNext24Hours();
   setWindowImage();
