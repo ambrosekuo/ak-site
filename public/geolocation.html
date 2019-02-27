@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Locator</title>
+    <link rel="stylesheet" href="geolocation.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Taken from Leaflet tutorial -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+      integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+      crossorigin=""
+    />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+      integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+      crossorigin=""
+      defer
+    ></script>
+    <script type="text/javascript" src="map.js" defer></script>
+  </head>
+  <body>
+    <div id="ErrorMessage"></div>
+    <main>
+      <h1 id="title">SUPER COOL MAP</h1>
+      <section id="main-container">
+        <div id="top-info">
+          <h1>Search for your location or just drag in a text file</h1>
+        </div>
+        <div class="input" id="input-start">
+          <h2>Start</h2>
+          <h3 id="start-error-message"></h3>
+          <form
+            class="start"
+            onSubmit="startSearch(this.className);  return false;"
+          >
+            <label for="startLocation"></label>
+            <input type="text" id="startLocation" name="startLocation" />
+          </form>
+          <button
+            class="current-button"
+            id="start-current"
+            onclick="loadCurrent('start'); return false;"
+          >
+            <img
+              class="current-img"
+              src="Images/CurrentLocation.png"
+              height="20"
+              width="20"
+            /></button
+          ><br />
+          <div class="info" id="start-info">
+            <span class="location-info" id="start-location"> </span>
+            <br /><br />
+            Longitude:<span class="longitude" id="start-longitude"> </span>
+            <br />
+            Latitude: <span class="latitude" id="start-latitude"> </span>
+          </div>
+        </div>
+        <aside id="switch-inputs">
+          <button id="swap-button" onClick="swapInputs(); return false;">
+            <img src="Images/swap.png" height="20" width="20" />
+          </button>
+        </aside>
+        <div class="input" id="input-destination">
+          <h2>Destination</h2>
+          <h3 id="destination-error-message"></h3>
+          <form
+            class="destination"
+            onSubmit="startSearch(this.className);  return false;"
+          >
+            <label for="destinationLocation"></label>
+            <input
+              type="text"
+              id="destinationLocation"
+              name="destinationLocation"
+            />
+          </form>
+          <button
+            class="current-button"
+            id="destination-current"
+            onclick="loadCurrent('destination'); return false;"
+          >
+            <img
+              class="current-img"
+              src="Images/CurrentLocation.png"
+              height="20"
+              width="20"
+            /></button
+          ><br />
+          <div class="info" id="destination-info">
+            <span class="location-info" id="destination-location"> </span>
+            <br /><br />
+            Longitude:<span class="longitude" id="destination-longitude">
+            </span>
+            <br />
+            Latitude:<span class="latitude" id="destination-latitude"> </span>
+          </div>
+        </div>
+        <section id="map">
+          <div id="mapid"></div>
+        </section>
+        <aside id="extra-info">
+          <h2>Extra Information</h2>
+          <div id="distance-box">
+            Distance from Start to Destination:
+            <span id="distance"> ? </span>
+          </div>
+        </aside>
+      </section>
+    </main>
+  </body>
+</html>
