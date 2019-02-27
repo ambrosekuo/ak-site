@@ -128,12 +128,26 @@ DivArea.prototype.startPopUp = function startPopUp() {
   startMarker.bindPopup(this.location.address);
 };
 
-DivArea.prototype.swapID = function swapID(divArea2) {
-  const temp = this.baseid;
-  this.baseid = divArea2.baseid;
-  divArea2.baseid = temp;
+DivArea.prototype.swapLocation = function swapLocation(divArea2) {
+  const temp = new Location();
+  temp.lat = this.location.lat;
+  temp.lng = this.location.lng;
+  temp.address = this.location.address;
+  temp.osmTxt = this.location.osmTxt;
+
+  this.location.lat = divArea2.location.lat;
+  this.location.lng = divArea2.location.lng;
+  this.location.address = divArea2.location.address;
+  this.location.osmTxt = divArea2.location.osmTxt;
+
+  divArea2.location.lat = temp.lat;
+  divArea2.location.lng = temp.lng;
+  divArea2.location.address = temp.address;
+  divArea2.location.osmTxt = temp.osmTxt;
+
   this.loadData();
   divArea2.loadData();
+
   //  Object.prototype.hasOwnProperty.call(divArea2, 'baseid') ? divArea2.baseid : 1;
 };
 
@@ -317,6 +331,11 @@ function startSearch(baseid) {
       break;
     }
   }
+}
+
+function swapInputs() {
+  box1.swapLocation(box2);
+  box1.mapView(box2);
 }
 
 // Assumes box1 is start, box2 is destination
