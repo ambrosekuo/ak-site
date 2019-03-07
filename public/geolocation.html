@@ -24,11 +24,16 @@
   <body>
     <div id="ErrorMessage"></div>
     <main>
-      <h1 id="title">SUPER COOL MAP</h1>
+      <div id="title"><h1>SUPER COOL MAP</h1> </div>
+      <div id="instructions"> <h1>4 ways to search locations</h1>
+      <ol> 
+        <li> Type in desired location name</li>
+        <li> Press button for current location</li>
+        <li> Drag the markers on the map</li>
+        <li> Drop a "lat, lng" format text file in either boxes</li>
+      </ol> 
+    </div>
       <section id="main-container">
-        <div id="top-info">
-          <h1>Search for your location or just drag in a text file</h1>
-        </div>
         <div class="input" id="input-start">
           <h2>Start</h2>
           <h3 id="start-error-message"></h3>
@@ -54,9 +59,9 @@
           <div class="info" id="start-info">
             <span class="location-info" id="start-location"> </span>
             <br /><br />
-            Longitude:<span class="longitude" id="start-longitude"> </span>
-            <br />
             Latitude: <span class="latitude" id="start-latitude"> </span>
+            <br />
+            Longitude:<span class="longitude" id="start-longitude"> </span>
           </div>
         </div>
         <aside id="switch-inputs">
@@ -93,19 +98,18 @@
           <div class="info" id="destination-info">
             <span class="location-info" id="destination-location"> </span>
             <br /><br />
-            Longitude:<span class="longitude" id="destination-longitude">
+            Latitude:<span class="latitude" id="destination-latitude"> </span>
             </span>
             <br />
-            Latitude:<span class="latitude" id="destination-latitude"> </span>
+            Longitude:<span class="longitude" id="destination-longitude">
           </div>
         </div>
         <section id="map">
           <div id="mapid"></div>
         </section>
         <aside id="extra-info">
-          <h2>Extra Information</h2>
+          <h2>Extra Information (Distance between Start to Destination)</h2>
           <div id="distance-box">
-            Distance from Start to Destination:
             <span id="distance"> ? </span>
           </div>
         </aside>

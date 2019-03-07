@@ -1,6 +1,10 @@
+const defaultLat = 43.6577209;
+const defaultLng = -79.38116649999999;
+
+
 // Todo: put token .env file and add as constiable to Heroku after submitting assignment
 const mapboxToken = 'pk.eyJ1IjoiYW1icm9zZWsiLCJhIjoiY2pzZ2tzM2g0MWN3eTQ0dGxpbnEwbTN0MyJ9.G-6gXVcJOFNLbZksnDgTEw';
-const mymap = L.map('mapid').setView([51.505, -0.09], 13);
+const mymap = L.map('mapid').setView([defaultLat, defaultLng], 13);
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
   attribution:
     'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -14,7 +18,6 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 const marker = L.marker([43.6577, -79.3788]).addTo(mymap); */
 
 let distance = '';
-
 const startIcon = L.icon({
   iconUrl: 'Images/startLocation.png',
 
@@ -23,11 +26,11 @@ const startIcon = L.icon({
   popupAnchor: [-3, -76], // point from which the popup should open relative to the iconAnchor
 });
 
-let startMarker = L.marker([51.505, -0.09], {
+let startMarker = L.marker( [defaultLat, defaultLng], {
   icon: startIcon,
 }).addTo(mymap);
 
-let destinationMarker = L.marker([51.5, -0.09]).addTo(mymap);
+let destinationMarker = L.marker([defaultLat, defaultLng]).addTo(mymap);
 let distanceLine = L.polygon([[51.505, -0.09], [51.505, -0.09]]).addTo(mymap);
 
 // Given an object with lon, lat properties convert to name;
@@ -227,7 +230,7 @@ DivArea.prototype.mapView = function mapView(divArea2) {
     location2 = divArea1.location;
   }
   if (location2.lat !== '' && location2.lat !== '') {
-    mymap.fitBounds([[location1.lat, location1.lng], [location2.lat, location2.lng]]);
+    mymap.fitBounds([[location1.lat, location1.lng], [location2.lat, location2.lng]], { padding: [20, 20] });
     distanceLine.remove();
     distanceLine = L.polygon([[location1.lat, location1.lng], [location2.lat, location2.lng]], {
       color: 'blue',
@@ -251,8 +254,13 @@ DivArea.prototype.mapView = function mapView(divArea2) {
 };
 
 const box1 = new DivArea('start'); // box1 , initialized as start
+box1.location.lat = defaultLat;
+box1.location.lng = defaultLng;
 
 const box2 = new DivArea('destination'); // box2 , initialized as destination
+box2.location.lat = defaultLat;
+box2.location.lng = defaultLng;
+
 const currentLocation = new Location();
 // const textData = '';
 const divAreaList = [];
@@ -291,6 +299,7 @@ async function loadValues() {
 const distanceWorker = new Worker('distanceWorker.js');
 
 function findDistance(lat1, lng1, lat2, lng2) {
+  document.getElementById('distance').innerHTML = '... calculting...';
   distanceWorker.postMessage([lat1, lng1, lat2, lng2]);
 }
 
