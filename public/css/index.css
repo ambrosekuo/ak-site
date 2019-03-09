@@ -100,35 +100,31 @@ a[href^="index"] {
   top: 10%;
   bottom: 10px;
   display: grid;
-  grid-template-rows: [top-row] 20% [middle-row] 1fr [bottom-row] 20%;
-  grid-template-columns: [module1] 1fr [module2] 2fr [module3] 2fr;
+  grid-template-rows: 200px 1fr 200px;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-auto-flow: row;
   padding: 1vw;
   box-sizing: border-box;
   align-content: stretch;	
   width: 100%;
-  min-width: 0
+  min-width: 0;
+  height: 100vh;
 }
 
 .testing {
   border: 1px white solid;
-  grid-row: middle-row / span 1;
-  grid-column: module1;
-  display: block;
   overflow: hidden;
 }
 
 .testing2 {
   border: 1px white solid;
-  grid-row: bottom-row;
-  grid-column: module3;
   overflow: hidden;
 }
 /* Weather-app */
 
 .weather-app {
-  grid-row: top-row / bottom-row;
-  grid-column: module3;
   border: 0.1vw white solid;
+  grid-rows: span 2;
   color: white;
   border-radius: 2px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
@@ -138,19 +134,20 @@ a[href^="index"] {
   background: radial-gradient(rgba(104, 108, 112, 0.5), rgba(36, 121, 211, 0.5));
   box-sizing: border-box;
   overflow:hidden;
+  height: auto;
+  grid-row: span 2;
 }
 
 
 .weather-app-container {
   display: grid;
-  grid-template-rows: [input] 1fr [current-weather] 0fr [body] 4fr [footer] 4fr;
-  grid-template-columns: [left-section] 3fr [right-section] 5fr;
-  grid-gap: 10px;
+  grid-template-rows: [input] 1fr [current-weather] 0fr [body] 10vh [footer] 10vh;
+  grid-template-columns: [left-section] 40% [right-section] 60%;
   padding-right: 10px;
-  overflow: scroll;
   border: 1px black solid;
-  height: 100%;
   box-sizing: border-box;
+  width: auto;
+  height: auto;
 }
 
 #weather-title {
@@ -181,14 +178,13 @@ a[href^="index"] {
 #hourly-temperature {
   background-color: rgba(138, 185, 201, 0.5);
   height: 100%;
-
 }
 
 .tempTimes {
+  font-size: 15px;
   color: white;
   border: 1px black solid;
 }
-
 
 figure {
   display: block;
@@ -201,7 +197,7 @@ figure {
   grid-row: body;
   border: 0.1vw white solid;
   width: 80%;
-  height: 20vh;
+  height: 100%;
   overflow:hidden;
   border-radius: 2px;
   box-shadow: 0 10px 6px -6px rgba(230, 232, 235, 0.26);
@@ -211,8 +207,8 @@ figure {
   z-index: 0;
   justify-self: center;
   display: block;
-  width: 50vw;
-  height: 30vh;
+  height: 100%;
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   animation: 10s linear infinite moveDown;
@@ -232,8 +228,7 @@ figure {
 }
 
 .day {
-  width: 8vw;
-  height: 8vh;
+  height: 100%;
   display: grid;
   grid: [day] 2fr [day-icon] 4fr [temperatures] 2fr/ 1fr;
   justify-content: center;
@@ -247,8 +242,6 @@ figure {
 
 .day-img {
   grid-row: day-icon / span 1;
-  width: 80%;
-  height: 100%;
   z-index: 5;
   background-size: 100% 100%;
   margin: auto auto;
@@ -309,19 +302,7 @@ footer {
   .nav-extra-container {
   }
 
-  
-  .dashboard {
-    display: block;
-  }
-  .module {
-    width: 100%;
-    float: left;
-  }
 
-  .weather-app {
-    height: 70%;
-  }
-  
   footer {
     font-size: 3vw;
   }
