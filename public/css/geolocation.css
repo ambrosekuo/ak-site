@@ -2,6 +2,11 @@ body {
   height: 100vh;
 }
 
+#location-container {
+  height: 100%;
+  width: 100%;
+}
+
 main {
   border: 0.3vw black solid;
   height: 100%;

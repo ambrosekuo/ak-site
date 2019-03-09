@@ -38,8 +38,6 @@ const monthsOfYear = [
 // From https://openweathermap.org/weather-conditions
 function setWindowImage() {
   //use is looking for "weather" ,
-  console.log(allWeatherData["current"]["weather"][0]["main"]);
- // document.getElementById("WeatherAnimation").src =
     "Images/Weather/Window/Thunderstorm.jpg";
   document.getElementById("WeatherAnimation").src = `Images/Weather/Window/${allWeatherData["current"]["weather"][0]["main"]}.jpg`;
 }
@@ -94,7 +92,6 @@ async function getCurrentWeather() {
       if (apiReq.status === 200) {
         //HTTP status code meaning all is good
         jsonText = apiReq.responseText;
-        console.log(jsonText);
         weatherData = JSON.parse(jsonText);
         allWeatherData["current"] = weatherData;
         allWeatherData["loadedIn"]["current"] = true;
@@ -110,11 +107,7 @@ async function getCurrentWeather() {
 }
 
 async function setWeatherData() {
-  console.log(document.getElementById("Location").value);
   await Promise.all([getCurrentWeather(), getForecast()]).then(loadWeatherData);
-  //setTimeout(loadWeatherData, 2000); //Budget fix while try to learn how to use promises.
-
-  console.log(allWeatherData);
 }
 
 const FORECASTDAYS = 6; //Counting current day currently
@@ -138,8 +131,6 @@ function parseForForecast() {
   let currentTemp;
   let today = new Date(allWeatherData["current"]["dt"] * 1000);
   let prevDate;
-  console.log(today);
-
   //Starts the weatherData list position at the day after today.
   date = new Date(weatherData[weatherListIndex]["dt"] * 1000);
   while (date.getDay() == today.getDay()) {
@@ -178,7 +169,6 @@ function parseForForecast() {
     weatherListIndex++;
   }
 
-  console.log(arr);
   return arr;
 }
 
@@ -214,7 +204,6 @@ function setHourly() {
 }
 
 function drawCurrentData() {
-  console.log(allWeatherData["current"]);
   document.getElementById("TempertureResult").innerHTML =
   roundString(allWeatherData["current"]["main"]["temp"]);
   document.getElementById("TryAgainMessage").innerHTML = "";
@@ -267,7 +256,6 @@ function roundString(numbString) {
 function loadWeatherData() {
   let forecast5Days = parseForForecast(); //an arry of forecasts
   drawCurrentData();
-  console.log(forecast5Days);
   setWeatherIcon(forecast5Days);
   setNext24Hours();
   setWindowImage();

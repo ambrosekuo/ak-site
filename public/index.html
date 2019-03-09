@@ -6,6 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="css/index.css" />
     <script type="text/javascript" src="js/weather.js"></script>
+    <script type="text/javascript" src="js/utilities.js"> </script>
+        <!-- Taken from Leaflet tutorial -->
+        <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+        integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+        crossorigin=""
+      />
+      <!-- Make sure you put this AFTER Leaflet's CSS -->
+      <script
+        src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+        crossorigin=""
+        defer
+      ></script>
+      <script type="text/javascript" src="js/map.js" defer></script>
   </head>
 
   <body>
@@ -19,12 +35,109 @@
         </ul>
       </nav>
     </header>
+    <div id="ErrorMessage"></div>
 
     <main>
+      <section id="utilities">
+        <button class="utilities" id="add-button"> + </button>
+        <button class="utilities" id="edit-button" onclick="moveModules(); return false;"> EDIT </button>
+      </section>
       <section class="dashboard">
-        <div class="module testing">aaaaaaaaaaaaaaaa</div>
-        <div class="module testing2">ccc</div>
-        <section class="module weather-app">
+        <div class="modules" id="testing">aaaaaaaaaaaaaaaa</div>
+        <div class="modules" id="testing2">ccc</div>
+        <section class="modules" id="location-container">
+          <div id="location-header">
+            <div id="title"><h1>SUPER COOL MAP</h1> </div>
+            <div id="instructions"> <h1>4 ways to search locations</h1>
+            <ol> 
+              <li> Type in desired location name</li>
+              <li> Press button for current location</li>
+              <li> Drag the markers on the map</li>
+              <li> Drop a "lat, lng" format text file in either boxes</li>
+            </ol> 
+            </div>
+          </div>
+          <div class="input" id="input-start">
+            <h2 class="location-h2">Start</h2>
+            <h3 id="start-error-message"></h3>
+            <form
+              class="start"
+              onSubmit="startSearch(this.className);  return false;"
+            >
+              <label for="startLocation"></label>
+              <input type="text" id="startLocation" name="startLocation" />
+            </form>
+            <button
+              class="current-button"
+              id="start-current"
+              onclick="loadCurrent('start'); return false;"
+            >
+              <img
+                class="current-img"
+                src="Images/CurrentLocation.png"
+                height="10"
+                width="10"
+              /></button
+            ><br />
+            <div class="info" id="start-info">
+              <span class="location-info" id="start-location"> </span>
+              <br /><br />
+              Latitude: <span class="latitude" id="start-latitude"> </span>
+              <br />
+              Longitude:<span class="longitude" id="start-longitude"> </span>
+            </div>
+          </div>
+          <aside id="switch-inputs">
+            <button id="swap-button" onClick="swapInputs(); return false;">
+              <img src="Images/swap.png" height="10" width=10 />
+            </button>
+          </aside>
+          <div class="input" id="input-destination">
+            <h2 class="location-h2">Destination</h2>
+            <h3 id="destination-error-message"></h3>
+            <form
+              class="destination"
+              onSubmit="startSearch(this.className);  return false;"
+            >
+              <label for="destinationLocation"></label>
+              <input
+                type="text"
+                id="destinationLocation"
+                name="destinationLocation"
+              />
+            </form>
+            <button
+              class="current-button"
+              id="destination-current"
+              onclick="loadCurrent('destination'); return false;"
+            >
+              <img
+                class="current-img"
+                src="Images/CurrentLocation.png"
+                height="10"
+                width="10"
+              /></button
+            ><br />
+            <div class="info" id="destination-info">
+              <span class="location-info" id="destination-location"> </span>
+              <br /><br />
+              Latitude:<span class="latitude" id="destination-latitude"> </span>
+              </span>
+              <br />
+              Longitude:<span class="longitude" id="destination-longitude">
+            </div>
+          </div>
+          <section id="map">
+            <div id="mapid"></div>
+          </section>
+          <aside id="extra-info">
+            <h2 class="location-h2">Extra Information</h2>
+            <div id="distance-box">
+              Distance: <span id="distance"> ? </span>
+            </div>
+          </aside>
+        </section>
+        <section class="modules weather-app">
           <div class="weather-app-container">
             <div class="location-input">
               <h1 id="weather-title">Weather</h1>

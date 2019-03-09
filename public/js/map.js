@@ -104,9 +104,11 @@ function DivArea(idName) {
   this.baseid = idName;
   this.location = new Location();
   this.dropbox = document.getElementById(`input-${this.baseid}`);
+  /*
   this.dropbox.ondragenter = this.ignoreDrag;
   this.dropbox.ondragover = this.ignoreDrag;
   this.dropbox.ondrop = this.drop.bind(this);
+  */
   this.errorMessage = true;
 }
 
@@ -121,9 +123,9 @@ DivArea.prototype.loadData = function loadData() {
     this.errorMessage = false;
     this.handleErrorMessage();
     // document.getElementById(`${this.baseid}Location`).value = this.location.address;
-    document.getElementById(`${this.baseid}-location`).innerHTML = this.location.address;
-    document.getElementById(`${this.baseid}-latitude`).innerHTML = this.location.lat;
-    document.getElementById(`${this.baseid}-longitude`).innerHTML = this.location.lng;
+    document.getElementById(`${this.baseid}-location`).innerHTML = this.location.address.slice(0, 60) + "...";
+    document.getElementById(`${this.baseid}-latitude`).innerHTML = Math.round(this.location.lat*100)/100;
+    document.getElementById(`${this.baseid}-longitude`).innerHTML = Math.round(this.location.lng*100)/100;
   }
 };
 
